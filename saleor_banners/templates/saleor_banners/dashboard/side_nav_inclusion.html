@@ -6,7 +6,7 @@
     {% trans "Banners" context "Dashboard saleor banners list" %}
   </p>
   <ul>
-      {% if perms.saleor_banners.vew %}
+      {% if perms.saleor_banners.view %}
         <li class="{% block menu_saleor_banners_class %}{% endblock %}">
           <a href="{% url 'saleor-banner-dashboard-list' %}">
             {% trans "Banners" context "Dashboard saleor banners list" %}
