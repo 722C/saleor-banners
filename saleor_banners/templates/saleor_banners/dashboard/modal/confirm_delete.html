@@ -1,0 +1,27 @@
+{% extends "dashboard/base_modal.html" %}
+
+{% load i18n %}
+
+{% block form_class %}{% endblock %}
+
+{% block action_url %}
+{% url 'saleor-banner-dashboard-delete' pk=saleor_banner.pk %}
+{% endblock %}
+
+{% block title %}
+{% blocktrans trimmed context "Modal remove saleor banner text" %}
+  Remove banner <strong>{{ saleor_banner }}</strong>?
+{% endblocktrans %}
+{% endblock %}
+
+{% block content %}
+  <div class="col s12">
+  {% blocktrans trimmed context "Modal remove saleor banner text" %}
+    Are you sure you want to remove banner {{ saleor_banner }}?
+  {% endblocktrans %}
+  </div>
+{% endblock content %}
+
+{% block primary_action %}
+{% trans "Remove" context "Dashboard delete action" %}
+{% endblock %}

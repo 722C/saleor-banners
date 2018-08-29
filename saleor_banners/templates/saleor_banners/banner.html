@@ -1,0 +1,15 @@
+{% if banner %}
+  <div class="saleor-banner saleor-banner-override" style="background-color: {{ banner.banner_color }};">
+    <span style="color: {{ banner.text_color }};">{{ banner.banner_text }}</span>
+  </div>
+
+  <style>
+    .saleor-banner {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding: 10px;
+      font-size: 1.5rem;
+    }
+  </style>
+{% endif %}

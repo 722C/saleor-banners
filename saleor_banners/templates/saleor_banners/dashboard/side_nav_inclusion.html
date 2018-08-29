@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% if perms.saleor_banners.view %}
+<li class="side-nav-section">
+  <p>
+    {% trans "Banners" context "Dashboard saleor banners list" %}
+  </p>
+  <ul>
+      {% if perms.saleor_banners.vew %}
+        <li class="{% block menu_saleor_banners_class %}{% endblock %}">
+          <a href="{% url 'saleor-banner-dashboard-list' %}">
+            {% trans "Banners" context "Dashboard saleor banners list" %}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+</li>
+{% endif %}
+

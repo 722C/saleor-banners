@@ -1,0 +1,101 @@
+{% extends "dashboard/base.html" %}
+{% load materializecss %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}
+  {% if saleor_banner.name %}
+    {{ saleor_banner }}
+  {% else %}
+    {% trans "Add new banner" context "Dashboard add saleor banner" %}
+  {% endif %}
+  - {% trans "Banner" context "Dashboard saleor banner" %} - {{ block.super }}
+{% endblock %}
+
+{% block body_class %}body-customers{% endblock %}
+
+{% block menu_saleor_banners_class %}active{% endblock %}
+
+{% block header_menu %}
+  {% url "saleor-banner-dashboard-list" as url %}
+  {% include "dashboard/includes/_back_link.html" with url=url %}
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumbs breadcrumbs--history">
+    <li>
+      <a href="{% url "saleor-banner-dashboard-list" %}">
+        {% trans "Banners" context "Dashboard saleor banners list" %}
+      </a>
+    </li>
+    <li class="back-mobile">
+      <a href="{% url "saleor-banner-dashboard-list" %}">
+        <svg data-src="{% static "dashboard/images/arrow-left.svg" %}" fill="#fff" width="20px" height="20px"></svg>
+      </a>
+    </li>
+    <li>
+      <span class="breadcrumbs--elipsed-item">
+        {% if saleor_banner.pk %}{{ saleor_banner }}{% else %}{% trans "Add new banner" context "Dashboard add new saleor banner" %}{% endif %}
+      </span>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block header_extra %}
+  {% if saleor_banner.pk %}
+    <a class="dropdown-button right" href="#" data-activates="context-menu" data-constrainwidth="false">
+      <svg data-src="{% static "dashboard/images/more-vert.svg" %}" height="24" width="24"></svg>
+    </a>
+    <ul id="context-menu" class="dropdown-content">
+        {% if perms.saleor_banners.edit %}
+      <li>
+        <a href="#base-modal" data-href="{% url 'saleor-banner-dashboard-delete' pk=saleor_banner.pk %}"
+        class="modal-trigger-custom">
+          {% trans 'Remove banner' context 'Saleor banner form action' %}
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+{% endblock %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col s12 l8">
+      {% if form %}
+        <form method="post" enctype="multipart/form-data" class="card">
+          <div class="card">
+            <div class="data-table-header">
+              <h5 class="data-table-title">
+                Banner
+              </h5>
+            </div>
+            <div class="card-content">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col s12">
+                  {{ form|materializecss }}
+                </div>
+              </div>
+            </div>
+            {% if perms.saleor_banners.edit %}
+            <div class="card-action right-align">
+              <a href="{% url 'saleor-banner-dashboard-list' %}" class="btn-flat waves-effect">
+                {% trans "Cancel" context "Dashboard cancel action" %}
+              </a>
+              <button type="submit" class="btn waves-effect">
+                {% if saleor_banner.pk %}
+                  {% trans 'Update' context 'Dashboard update action' %}
+                {% else %}
+                  {% trans 'Add' context 'Dashboard add action' %}
+                {% endif %}
+              </button>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
