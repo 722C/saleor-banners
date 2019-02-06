@@ -21,7 +21,7 @@ def saleor_banner_list(request):
     saleor_banner_filter = SaleorBannerFilter(
         request.GET, queryset=saleor_banners)
     saleor_banners = get_paginator_items(
-        saleor_banners, settings.DASHBOARD_PAGINATE_BY, request.GET.get('page'))
+        saleor_banner_filter.qs, settings.DASHBOARD_PAGINATE_BY, request.GET.get('page'))
     # Call this so that cleaned_data exists on the filter_set
     saleor_banner_filter.form.is_valid()
     ctx = {
